@@ -1,19 +1,58 @@
 # Claude Advanced Plugins
 
-A comprehensive collection of **42 advanced plugins** (49 slash commands) for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that supercharge your development, security, and productivity workflows.
+A comprehensive collection of **48 advanced plugins** (55+ slash commands) for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) covering cybersecurity, game development, frontend, backend, reverse engineering, and AI productivity.
 
-Each plugin installs as a custom slash command in Claude Code, giving you instant access to specialized expertise.
+Each plugin installs as a **custom slash command** — type `/command-name` in Claude Code to activate.
 
 ## Quick Install
 
 ```bash
+# 1. Clone the repository
 git clone https://github.com/CyberSecurityUP/ClaudeAdvancedPlugins.git
 cd ClaudeAdvancedPlugins
+
+# 2. Run the installer
 chmod +x install.sh
 ./install.sh
 ```
 
-That's it. All plugins are now available as `/command-name` in Claude Code.
+### Install by Category
+
+```bash
+# Install only what you need
+./install.sh -c security          # All offensive security plugins
+./install.sh -c blueteam          # All blue team / defense plugins
+./install.sh -c gamedev           # Unity, Unreal, Godot, Three.js
+./install.sh -c frontend          # Animations, DOM, 3D, performance
+./install.sh -c reverse           # Binary, malware, firmware, protocol RE
+
+# Combine multiple categories
+./install.sh -c security -c blueteam -c reverse
+
+# Interactive mode — pick what you want
+./install.sh --interactive
+```
+
+### Other Commands
+
+```bash
+./install.sh --list               # See all plugins and commands
+./install.sh --status             # Check what's installed
+./install.sh --update             # Update installed plugins
+./install.sh --uninstall          # Remove all plugins
+./install.sh -p pentest-ad        # Install one specific plugin
+./install.sh --help               # Full usage guide
+```
+
+### How Plugins Work in Claude Code
+
+1. **Install Claude Code** (if you haven't): `npm install -g @anthropic-ai/claude-code`
+2. **Run the installer** above — it copies `.md` files to `~/.claude/commands/`
+3. **Open Claude Code**: `claude`
+4. **Type any slash command**: `/pentest-ad enumerate this Active Directory domain`
+5. Claude Code loads the plugin prompt and becomes a specialist in that domain
+
+> Plugins are just Markdown files with expert system prompts. No dependencies, no servers, no config.
 
 ## Plugin Categories
 
@@ -33,6 +72,25 @@ That's it. All plugins are now available as `/command-name` in Claude Code.
 | **Frontend 3D** | `/frontend-3d` | Three.js, React Three Fiber, WebGL, GLSL shaders, 3D scenes |
 | **Frontend Performance** | `/frontend-perf` | Core Web Vitals, bundle optimization, code splitting, rendering performance |
 | **Frontend Micro** | `/frontend-micro` | Micro-frontends, Module Federation, state machines, monorepo architecture |
+
+### Game Development
+
+| Plugin | Commands | Description |
+|--------|----------|-------------|
+| **Unity (C#)** | `/gamedev-unity` | MonoBehaviour lifecycle, ScriptableObjects, ECS/DOTS, URP/HDRP, networking, editor tools |
+| **Unreal Engine (C++)** | `/gamedev-unreal` | UObject system, GAS, Enhanced Input, Nanite/Lumen, Blueprints, networking |
+| **Three.js (Web)** | `/gamedev-threejs` | Browser games, ECS, Rapier physics, R3F, custom shaders, input, audio |
+| **Godot (GDScript/C#)** | `/gamedev-godot` | Node system, GDScript 4, state machines, physics, Godot 4 features |
+| **Game Design** | `/gamedev-design` | Core loops, balancing, ECS patterns, level design, GDD/TDD templates |
+
+### Context & Memory
+
+| Plugin | Commands | Description |
+|--------|----------|-------------|
+| **Memory Vault** | `/memory-vault` | Persistent cross-session knowledge management |
+| **Context Keeper** | `/context-keeper` | Maintains project context across sessions, auto-saves decisions and conventions |
+| **Context Manager** | `/context-manager` | Context window optimization, smart file loading |
+| **Hallucination Guard** | `/hallucination-guard` | Accuracy verification, confidence signaling, source validation |
 
 ### Red Team & Offensive Security
 
@@ -85,14 +143,6 @@ That's it. All plugins are now available as `/command-name` in Claude Code.
 | **Cloud Security** | `/cloud-security` | Cloud security architecture, landing zones, IAM, multi-cloud design |
 | **DevSecOps** | `/devsecops` | CI/CD security, SAST/DAST/SCA integration, security pipeline design |
 
-### Productivity & AI
-
-| Plugin | Commands | Description |
-|--------|----------|-------------|
-| **Memory Vault** | `/memory-vault` | Persistent cross-session knowledge management |
-| **Context Manager** | `/context-manager` | Context window optimization, smart file loading |
-| **Hallucination Guard** | `/hallucination-guard` | Accuracy verification, confidence signaling, source validation |
-
 ### Systems
 
 | Plugin | Commands | Description |
@@ -102,6 +152,18 @@ That's it. All plugins are now available as `/command-name` in Claude Code.
 ## Usage Examples
 
 ```bash
+# Game Development
+/gamedev-unity Build a character controller with wall jump and dash in Unity
+/gamedev-unreal Create a GAS-based ability system with cooldowns
+/gamedev-threejs Build a multiplayer browser game with physics and WebSocket
+/gamedev-godot Create an inventory system with drag-and-drop in Godot 4
+/gamedev-design Design the core loop and progression system for a roguelike
+
+# Context Management
+/context-keeper save architecture Auth uses JWT RS256, refresh in httpOnly cookies
+/context-keeper resume
+/context-keeper snapshot
+
 # Backend
 /backend-architect Design a microservices architecture for an e-commerce platform
 /backend-db-optimize Analyze slow queries in this PostgreSQL schema
@@ -149,23 +211,23 @@ That's it. All plugins are now available as `/command-name` in Claude Code.
 ## Selective Installation
 
 ```bash
-# Install only blue team plugins
-./install.sh -p blue-team-soc -p blue-team-dfir -p blue-team-siem -p blue-team-edr
+# Install by category (recommended)
+./install.sh -c gamedev                         # All game dev plugins
+./install.sh -c security -c blueteam            # Security + defense
+./install.sh -c frontend -c gamedev             # Frontend + game dev
 
-# Install only frontend plugins
-./install.sh -p frontend-forge -p frontend-animations -p frontend-dom -p frontend-3d -p frontend-perf
+# Install individual plugins
+./install.sh -p gamedev-unity -p gamedev-unreal  # Only Unity + Unreal
+./install.sh -p pentest-ad -p blue-team-siem     # AD pentesting + SIEM
 
-# Install only pentest plugins
-./install.sh -p pentest-toolkit -p pentest-network -p pentest-ad -p pentest-cloud -p pentest-mobile
+# Interactive selector
+./install.sh -i
 
-# Install only reverse engineering plugins
-./install.sh -p reverse-binary -p reverse-malware -p reverse-protocol -p reverse-firmware
-
-# List all available plugins and their commands
-./install.sh --list
-
-# Force reinstall (overwrite existing)
-./install.sh --force
+# Management
+./install.sh --list                              # All plugins + commands
+./install.sh --status                            # What's installed
+./install.sh --update                            # Update installed plugins
+./install.sh --force                             # Force reinstall everything
 ```
 
 ## Uninstall
@@ -177,6 +239,41 @@ That's it. All plugins are now available as `/command-name` in Claude Code.
 ```
 
 ## Plugin Details
+
+<details>
+<summary><strong>Game Development (5 commands)</strong></summary>
+
+### Unity (C#)
+Complete Unity game development. MonoBehaviour lifecycle, ScriptableObject architecture, state machines, new Input System, URP/HDRP rendering, physics (2D/3D), UI Toolkit, Netcode for GameObjects, Job System + Burst + DOTS, editor extensions, object pooling, and genre-specific patterns (platformer, RPG, FPS, RTS, VR/AR).
+
+### Unreal Engine (C++)
+Expert UE5 development. UObject/UCLASS system, Gameplay Ability System (GAS) with attributes and effects, Enhanced Input, animation blueprints with blend spaces and montages, behavior trees for AI, Nanite/Lumen rendering, Niagara particles, replication and RPCs, UMG/Common UI, and World Partition for open worlds.
+
+### Three.js (Browser Games)
+Web-based game development with Three.js and React Three Fiber. Game loop with fixed timestep, ECS architecture, Rapier.js physics, input management (keyboard, mouse, gamepad, pointer lock), camera systems, particle effects, audio (spatial 3D), level management, procedural generation, and performance optimization for 60fps.
+
+### Godot (GDScript / C#)
+Godot 4 game development. Node/scene system, GDScript with static typing, state machines, CharacterBody3D/2D controllers, Resource-based data (like ScriptableObjects), autoload singletons, GDExtension, navigation server, tweens, multiplayer synchronization, and C# integration.
+
+### Game Design
+Game design theory and architecture. Core loop design (moment-to-moment, session, progression, meta), mechanics catalog, numerical balancing (DPS, EHP, TTK formulas), economy systems (sinks/faucets), difficulty curves, ECS/event-driven/command patterns, level design principles, camera design, audio design, accessibility (colorblind, remappable controls), and GDD/TDD templates.
+</details>
+
+<details>
+<summary><strong>Context & Memory (4 commands)</strong></summary>
+
+### Context Keeper
+Persistent context management system. Automatically identifies and saves critical project context (architecture, conventions, active work, decisions, known issues). Provides commands: save, restore, status, snapshot, resume, decide, issue, clean. Maintains a living knowledge base in `~/.claude/projects/*/memory/` that persists across sessions.
+
+### Memory Vault
+Intelligent knowledge capture and retrieval. Organizes information semantically by topic (architecture, conventions, debugging, dependencies, patterns). Auto-cleans outdated entries and keeps MEMORY.md under 200 lines for efficient system prompt loading.
+
+### Context Manager
+Optimizes context window usage. Smart file loading with priority levels, context compression for large sessions, checkpoint/restore for context preservation, and anti-pattern detection to prevent wasted tokens.
+
+### Hallucination Guard
+Active hallucination prevention. Confidence levels ([VERIFIED] to [UNCERTAIN]), source verification workflow, detection of API/path/version/behavioral hallucination patterns, self-correction protocol, and claim verification against actual codebase.
+</details>
 
 <details>
 <summary><strong>Backend Development (3 commands)</strong></summary>
@@ -317,19 +414,13 @@ CI/CD security pipeline. Pre-commit hooks (gitleaks), SAST (Semgrep, CodeQL), SC
 </details>
 
 <details>
-<summary><strong>Productivity & Systems (5 commands)</strong></summary>
-
-### Memory Vault
-Persistent knowledge management across Claude Code sessions. Captures architecture decisions, debugging insights, project conventions, and user preferences with semantic organization.
-
-### Context Manager
-Context window optimization. Smart file loading prioritization, context compression, checkpointing, recovery after compression, and anti-pattern detection.
-
-### Hallucination Guard
-Hallucination prevention. Source verification, confidence levels ([VERIFIED] to [UNCERTAIN]), API/path/version/behavioral hallucination detection, self-correction protocol, and verification workflow.
+<summary><strong>Systems (3 commands)</strong></summary>
 
 ### OS Internals & Debug
 Linux, Windows, and macOS kernel internals. Process scheduling (CFS, MLFQ), virtual memory (page tables, TLB, ASLR), file systems (ext4, NTFS, APFS), networking stack, kernel data structures, eBPF, Windows ETW, macOS XNU/Mach, and system-level debugging (GDB, perf, DTrace, Instruments).
+
+### Cloud Security
+Cloud security architecture for AWS/Azure/GCP. IAM design, VPC segmentation, encryption (KMS), logging, CSPM, secure landing zones, and compliance mapping.
 </details>
 
 ## How It Works
